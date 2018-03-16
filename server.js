@@ -4,11 +4,8 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
 const scrape = require("./app/scripts/scrape");
-const fs = require("fs");
 
-const db = require("./app/models");
-
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 
@@ -16,9 +13,27 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/static', express.static(path.join(__dirname, './app/public')));
 
-mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/scraperhw");
+const databaseUri ="mongodb://localhost/scraperhw";
 
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect(databaseUri);
+}
+
+mongoose.Promise = Promise;
+
+const db = require("./app/models");
+// const db = mongoose.connection;
+
+/* db.on('error', function(err) {
+  console.log("Mongoose Error: ", err);
+})
+
+db.once("open", function() {
+  console.log("Mongoose connection successful.")
+})
+ */
 app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname + '/app/public/index.html'));
 })

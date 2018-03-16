@@ -92,6 +92,7 @@ $(document).on("click", ".x", function(e) {
     url: "/notes/" + thisId,
   })
   .done(function (result) {
+    // I do not know why this isn't rebuilding the notes divs when you click the x button
     loadNotes(divId);
   })
 })
