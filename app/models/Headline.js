@@ -6,13 +6,16 @@ const HeadlineSchema = new Schema({
     title: {
         type: String,
         required: true,
-        unique: true
     },
     link: {
         type: String,
         required: true,
+        unique: "Article links must be unique"
     },
     summary: {
+        type: String
+    },
+    thumbnail: {
         type: String
     },
     notes: [{

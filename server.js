@@ -19,11 +19,12 @@ mongoose.Promise = Promise;
 mongoose.connect("mongodb://localhost/scraperhw");
 
 app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname + '/app/public/index.html'));
+  res.sendFile(path.join(__dirname + '/app/public/index.html'));
 })
 
-app.get("/scrape", function(req, res) {
-  scrape(res);
+app.get("/scrape/:id", function(req, res) {
+  const choice = req.params.id
+  scrape(choice, res);
 });
 
 app.get("/headlines", function(req, res) {

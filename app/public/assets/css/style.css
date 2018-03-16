@@ -25,3 +25,27 @@ textarea {
   height: 200px;
   font-size: 18px;
 }
+.scrapedDiv {
+  display: block;
+  min-height:200px;
+  height: auto;
+  width: 100%;
+  background-color: #e4e3;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+}
+.img-fluid {
+  width: 100%;
+  margin-top: auto;
+}
+.scrapedDiv a {
+  text-decoration: none;
+  font-weight: 800;
+}
+.scrapedDiv a:hover {
+  color: #3f3f3f;
+}
+.scrapedDiv .content {
+  text-align: left;
+}
