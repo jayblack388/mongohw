@@ -4,6 +4,7 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
 const scrape = require("./app/scripts/scrape");
+const fs = require("fs");
 
 const db = require("./app/models");
 
@@ -60,6 +61,14 @@ app.get("/headlines/:id", function(req, res) {
     res.json(err)
   })
 });
+
+app.post("/notes/:id", function(res, req) {
+  const thisId = req.req.params.id
+  db.Note.findById(thisId)
+  .then(function (note) {
+    return note.remove();
+  })
+})
 
 app.post("/headlines/:id", function(req, res) {
   db.Note.create(req.body)

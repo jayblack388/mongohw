@@ -27,7 +27,7 @@ textarea {
 }
 .scrapedDiv {
   display: block;
-  min-height:200px;
+  /* max-height:360px; */
   height: auto;
   width: 100%;
   background-color: #e4e3;
@@ -36,7 +36,6 @@ textarea {
   text-align: center;
 }
 .img-fluid {
-  width: 100%;
   margin-top: auto;
 }
 .scrapedDiv a {
@@ -48,4 +47,15 @@ textarea {
 }
 .scrapedDiv .content {
   text-align: left;
+}
+ul {
+  list-style-type: none;
+}
+.x {
+  position: relative;
+  background: transparent;
+  color: white;
+  top: 20px;
+  right: -300px;
+  cursor: pointer;
 }
