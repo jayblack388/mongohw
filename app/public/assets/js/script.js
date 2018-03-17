@@ -20,46 +20,34 @@ function loadNotes (scraperDivId) {
     })
   });
 }
-
-function shuffle(array) {
-  let currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
-$.getJSON("/headlines", function(data) {
-  let count = 0;
-  let shuffleArray = shuffle(data)
-    for (var i = 0; i < shuffleArray.length; i++) {
-      let loopDiv = $(
-       `<div class="scrapedDiv" data-id='${shuffleArray[i]._id}'>
-          <div class="row contentRow">
-            <div class="col-12 col-md-6"><a href='${shuffleArray[i].link}'><img class="img-fluid" src="${shuffleArray[i].thumbnail}"></a></div>
-            <div class="col-12 col-md-6 text-center">
-              <a href='${shuffleArray[i].link}'><h3>${shuffleArray[i].title}</h3></a><br />
-              <p>${shuffleArray[i].summary}</p>
+$(document).ready(function () {
+  $.getJSON("/headlines", function(data) {
+    let count = 0;
+      for (var i = 0; i < data.length; i++) {
+        let thumbnail;
+        if (!data[i].thumbnail) {
+          thumbnail = "static/assets/images/placeholder.png";
+        } else {
+          thumbnail = data[i].thumbnail;
+        }
+        let loopDiv = $(
+         `<div class="scrapedDiv" data-id='${data[i]._id}'>
+            <div class="row contentRow">
+              <div class="col-12 col-md-6"><a href='${data[i].link}'><img class="img-fluid" src="${thumbnail}"></a></div>
+              <div class="col-12 col-md-6 text-center">
+                <a href='${data[i].link}'><h3>${data[i].title}</h3></a><br />
+                <p>${data[i].summary}</p>
+              </div>
             </div>
-          </div>
-        </div><br />`);
-      $("#headlines").prepend(loopDiv);
-      loopDiv.append(`<div class="row notesRow text-center"><div id="notes-${shuffleArray[i]._id}" data-id="${shuffleArray[i]._id}" class="col-12 col-md-6 notes"></div><div class="postedNotes col-12 col-md-6"></div></div>`)
-      count ++;
-    }
-  $("#articleCount").text(count + " Articles Scraped")
-});
+          </div><br />`);
+        $("#headlines").prepend(loopDiv);
+        loopDiv.append(`<div class="row notesRow text-center"><div id="notes-${data[i]._id}" data-id="${data[i]._id}" class="col-12 col-md-6 notes"></div><div class="postedNotes col-12 col-md-6"></div></div>`)
+        count ++;
+      }
+    $("#articleCount").text(count + " Articles Scraped")
+  });
+})
+
 
 $("#scrapeBtn").on("click", function(e) {
   e.preventDefault();
