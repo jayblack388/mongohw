@@ -1,3 +1,5 @@
+const scrape = require("../scripts/scrape");
+
 module.exports = (app, db) => {
   app.get("/scrape/:id", function(req, res) {
     const choice = req.params.id;

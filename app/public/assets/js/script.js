@@ -20,6 +20,7 @@ function loadNotes (scraperDivId) {
     })
   });
 }
+
 $(document).ready(function () {
   $.getJSON("/headlines", function(data) {
     let count = 0;
