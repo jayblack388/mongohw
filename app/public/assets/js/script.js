@@ -1,7 +1,9 @@
 function loadNotes (scraperDivId) {
   let scraperDiv = $(`div[data-id="${scraperDivId}"]`);
   let notes = scraperDiv.find("div.notes");
+  let noteRow = scraperDiv.find("div.notesRow");
   notes.empty();
+  noteRow.addClass("shown");
   let writtenNote = scraperDiv.find("div.postedNotes");
   writtenNote.empty();
   writtenNote.append(`<h3>Comments</h3><br /><ul class="noteList"></ul>`)  
@@ -35,20 +37,19 @@ $(document).ready(function () {
          `<div class="scrapedDiv" data-id='${data[i]._id}'>
             <div class="row contentRow">
               <div class="col-12 col-md-6"><a href='${data[i].link}'><img class="img-fluid" src="${thumbnail}"></a></div>
-              <div class="col-12 col-md-6 text-center">
+              <div class="col-12 col-md-6 text-center content">
                 <a href='${data[i].link}'><h3>${data[i].title}</h3></a><br />
                 <p>${data[i].summary}</p>
               </div>
             </div>
           </div><br />`);
         $("#headlines").prepend(loopDiv);
-        loopDiv.append(`<div class="row notesRow text-center"><div id="notes-${data[i]._id}" data-id="${data[i]._id}" class="col-12 col-md-6 notes"></div><div class="postedNotes col-12 col-md-6"></div></div>`)
+        loopDiv.append(`<div class="row notesRow"><div id="notes-${data[i]._id}" data-id="${data[i]._id}" class="col-12 col-md-6 notes"></div><div class="postedNotes col-12 col-md-6"></div></div>`)
         count ++;
       }
     $("#articleCount").text(count + " Articles Scraped")
   });
 })
-
 
 $("#scrapeBtn").on("click", function(e) {
   e.preventDefault();
@@ -96,8 +97,7 @@ $(document).on("click", ".x", function(e) {
   $.ajax({
     method: "POST",
     url: "/notes/" + thisId,
-  })
-  .done(function (result) {
+  }).then(function (result) {
     // I do not know why this isn't rebuilding the notes divs when you click the x button
     loadNotes(divId);
   })
