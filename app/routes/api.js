@@ -40,11 +40,12 @@ module.exports = (app, db) => {
       });
   });
 
-  app.post("/notes/:id", function(res, req) {
-    const thisId = req.req.params.id;
+  app.delete("/notes/:id", function(req, res) {
+    const thisId = req.params.id;
     db.Note.findById(thisId).then(function(note) {
-      return note.remove();
-    });
+      note.remove();
+      res.json({});
+    })
   });
 
   app.post("/headlines/:id", function(req, res) {

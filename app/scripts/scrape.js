@@ -30,7 +30,7 @@ module.exports = function(choice, res) {
       url = "http://www.earther.com"
       break;
     case "Jezebel":
-      url = "http://www.jezejbel.com"
+      url = "http://www.jezebel.com"
       break;  
     case "Lifehacker":
       url = "http://www.lifehacker.com"
