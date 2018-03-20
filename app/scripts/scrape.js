@@ -73,8 +73,6 @@ module.exports = function(choice, res) {
         .find("picture")
         .children("source")
         .attr("data-srcset")
-        // console.log(thumb)
-      // console.log(content.find("picture").children("source").attr("data-srcset") + "\n\n\n");
 
       var result = {};
       result.title = header
@@ -84,7 +82,6 @@ module.exports = function(choice, res) {
       result.summary = summary
         .text();
       result.thumbnail = thumb
-      console.log(result.thumbnail)
       if (!contains(result, result.link, dbArticleArr)){
         resultArr.push(result);  
       } else {

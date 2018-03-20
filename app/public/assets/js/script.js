@@ -25,49 +25,49 @@ $(document).ready(function () {
         } else {
           thumbnail = data[i].thumbnail;
         }
-        let loopDiv = $(`
-        <div id="accordion-${data[i]._id}" class="scrapedDiv" data-id='${data[i]._id}'>
-          <div class="card">
-            <div class="card-header">
-              <a href='${data[i].link}'><h3>${data[i].title}</h3></a>
-            </div>
-            <div class="row card-body" id="articleBody-${data[i]._id}">
-              <div class="col-12 col-md-6">
-                  <p>${data[i].summary}</p>
+        const loopDiv = $(`
+          <div id="accordion-${data[i]._id}" class="scrapedDiv" data-id='${data[i]._id}'>
+            <div class="card">
+              <div class="card-header">
+                <a href='${data[i].link}'><h3>${data[i].title}</h3></a>
               </div>
-              <div class="col-12 col-md-6">
-                  <a href='${data[i].link}'><img class="img-fluid" src="${thumbnail}"></a>
+              <div class="row card-body" id="articleBody-${data[i]._id}">
+                <div class="col-12 col-md-6">
+                    <p>${data[i].summary}</p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <a href='${data[i].link}'><img class="img-fluid" src="${thumbnail}"></a>
+                </div>
               </div>
-            </div>
-            
-            <div class="card-header" id="commentButton-${data[i]._id}">
-              <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#comments-${data[i]._id}" aria-expanded="false" aria-controls="comments-${data[i]._id}">
-                  Comments CLICKY
-                </button>
-              </h5>
-            </div>
-        
-            <div id="comments-${data[i]._id}" class="collapse" aria-labelledby="commentButton-${data[i]._id}" data-parent="#accordion-${data[i]._id}">
-              <div class="card-body">
-                <div class="row notesRow">
-                  <div id="notes-${data[i]._id}" data-id="${data[i]._id}" class="col-12 col-md-6 notes">
-                    <h3>${data[i].title}</h3>
-                    <input id='titleinput' name='title' >
-                    <textarea id='bodyinput' name='body'></textarea>
-                    <button data-id='${data[i]._id}' id='savenote'>Save Note</button>
-                  </div>
-                  <div class="postedNotes col-12 col-md-6">
-                    <h5>Comments</h5>
-                    <ul class="noteList">
-                      
-                    </ul>
-                  </div>
-                </div>              
+              
+              <div class="card-header" id="commentButton-${data[i]._id}">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#comments-${data[i]._id}" aria-expanded="false" aria-controls="comments-${data[i]._id}">
+                    Comments CLICKY
+                  </button>
+                </h5>
+              </div>
+          
+              <div id="comments-${data[i]._id}" class="collapse" aria-labelledby="commentButton-${data[i]._id}" data-parent="#accordion-${data[i]._id}">
+                <div class="card-body">
+                  <div class="row notesRow">
+                    <div id="notes-${data[i]._id}" data-id="${data[i]._id}" class="col-12 col-md-6 notes">
+                      <h3>${data[i].title}</h3>
+                      <input id='titleinput' name='title' >
+                      <textarea id='bodyinput' name='body'></textarea>
+                      <button data-id='${data[i]._id}' id='savenote'>Save Note</button>
+                    </div>
+                    <div class="postedNotes col-12 col-md-6">
+                      <h5>Comments</h5>
+                      <ul class="noteList">
+                        
+                      </ul>
+                    </div>
+                  </div>              
+                </div>
               </div>
             </div>
           </div>
-        </div>
         `);
         $("#headlines").prepend(loopDiv);
         count ++;
@@ -83,7 +83,7 @@ $(document).ready(function () {
 
 $("#scrapeBtn").on("click", function(e) {
   e.preventDefault();
-  let choice = $("#scrapeDD").val();
+  const choice = $("#scrapeDD").val();
   $.ajax({
     method: "GET",
     url: "/scrape/" + choice
@@ -94,7 +94,7 @@ $("#scrapeBtn").on("click", function(e) {
 
 $(document).on("click", "#savenote", function(e) {
   e.preventDefault();
-  var articleId = $(this).attr("data-id");
+  const articleId = $(this).attr("data-id");
 
   $.ajax({
     method: "POST",
@@ -105,7 +105,6 @@ $(document).on("click", "#savenote", function(e) {
     }
   })
   .then(function(data) {
-    console.log(articleId);
     loadNotes(articleId);
   });
 
@@ -115,16 +114,12 @@ $(document).on("click", "#savenote", function(e) {
 
 $(document).on("click", ".x", function(e) {
   e.preventDefault();
-  var articleId = $(this).attr("div-id");
-  console.log(articleId)
-  var noteId = $(this).parent().attr("data-id")
-  console.log(noteId)
+  const articleId = $(this).attr("div-id");
+  const noteId = $(this).parent().attr("data-id");
   $.ajax({
     method: "DELETE",
     url: "/notes/" + noteId,
   }).then(function (result) {
-    console.log(result);
-    // I do not know why this isn't rebuilding the notes divs when you click the x button
     loadNotes(articleId);
   })
 })
