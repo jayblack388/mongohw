@@ -43,7 +43,7 @@ $(document).ready(function () {
               <div class="card-header" id="commentButton-${data[i]._id}">
                 <h5 class="mb-0">
                   <button class="btn btn-link" data-toggle="collapse" data-target="#comments-${data[i]._id}" aria-expanded="false" aria-controls="comments-${data[i]._id}">
-                    Comments CLICKY
+                    Comments
                   </button>
                 </h5>
               </div>
