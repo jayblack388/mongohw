@@ -20,11 +20,11 @@ $(document).ready(function () {
     let count = 0;
       for (let i = 0; i < data.length; i++) {
         let thumbnail;
-        if (!data[i].thumbnail) {
+        // if (!data[i].thumbnail) {
           thumbnail = "static/assets/images/placeholder.png";
-        } else {
-          thumbnail = data[i].thumbnail;
-        }
+        // } else {
+          // thumbnail = data[i].thumbnail;
+        // }
         const loopDiv = $(`
           <div id="accordion-${data[i]._id}" class="scrapedDiv" data-id='${data[i]._id}'>
             <div class="card">
